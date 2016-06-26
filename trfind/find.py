@@ -2,8 +2,10 @@ import argparse
 import itertools
 import sys
 
+import petl
+
 from trfind.finders import ALL_FINDERS
-from trfind.models import Peak
+from trfind.models import Peak, TripReportSummary
 
 
 def main():
@@ -23,6 +25,9 @@ def main():
     print 'Finding trip reports for', peak
 
     all_trip_reports = list(itertools.chain(
-        *(finder(peak) for finder in ALL_FINDERS)
+        *[finder(peak) for finder in ALL_FINDERS]
     ))
-    print all_trip_reports
+    petl.fromdicts(
+        [report.__dict__ for report in all_trip_reports],
+        header=TripReportSummary._fields
+    ).tocsv()
