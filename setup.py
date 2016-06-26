@@ -10,6 +10,7 @@ setup(
     packages=['trfind'],
     install_requires=[
         'beautifulsoup',
+        'Flask',
         'lxml',
         'mechanize',
         'petl',
