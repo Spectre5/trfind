@@ -8,6 +8,12 @@ from trfind.finders import ALL_FINDERS
 from trfind.models import Peak, TripReportSummary
 
 
+def get_all_trip_reports(peak):
+    return list(itertools.chain(
+        *[finder(peak) for finder in ALL_FINDERS]
+    ))
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('lat', type=float)
@@ -24,9 +30,8 @@ def main():
     peak = Peak(peak_name, args.lat, args.lon)
     print 'Finding trip reports for', peak
 
-    all_trip_reports = list(itertools.chain(
-        *[finder(peak) for finder in ALL_FINDERS]
-    ))
+    all_trip_reports = get_all_trip_reports(peak)
+
     petl.fromdicts(
         [report.__dict__ for report in all_trip_reports],
         header=TripReportSummary._fields
