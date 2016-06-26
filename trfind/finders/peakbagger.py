@@ -51,11 +51,11 @@ def _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url):
 def _convert_peak_to_pid(peak):
     peakbagger_id_lookup = json.loads(pkg_resources.resource_string('trfind.finders', 'peakbagger_id_lookup.json'))
     fuzzy_match_deltas = [0, -0.001, 0.001]
-    for lat_delta_index in fuzzy_match_deltas:
-        for lon_delta_index in fuzzy_match_deltas:
+    for lat_delta in fuzzy_match_deltas:
+        for lon_delta in fuzzy_match_deltas:
             lat_lon_string = '{lat}, {lon}'.format(
-                lat=round(peak.lat + fuzzy_match_deltas[lat_delta_index], 3),
-                lon=round(peak.lon + fuzzy_match_deltas[lon_delta_index], 3)
+                lat=round(peak.lat + lat_delta, 3),
+                lon=round(peak.lon + lon_delta, 3)
             )
             peak_id = peakbagger_id_lookup.get(lat_lon_string)
             if peak_id is not None:
