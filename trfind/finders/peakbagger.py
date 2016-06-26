@@ -1,3 +1,5 @@
+import json
+import pkg_resources
 from datetime import datetime
 from dateutil import parser
 from functools import partial
@@ -14,11 +16,14 @@ PEAKBAGGER_SITE = 'Peakbagger'
 def _parse_date(date_string):
     try:
         return parser.parse(date_string, default=datetime(2000, 1, 1))
-    except Exception:
+    except ValueError, AttributeError:
         return None
 
 def _get_href(cell):
     return cell.a['href'] if cell.a else None
+
+def _has_gps(cell):
+    return True if cell.text.strip() == 'GPS' else False
 
 def _parse_trip_report_row(trip_report_row, relative_to_absolute_url):
     cells = trip_report_row.findAll("td")
@@ -32,7 +37,7 @@ def _parse_trip_report_row(trip_report_row, relative_to_absolute_url):
                 date = _parse_date(cells[0].text.strip()),
                 route = cells[4].text.strip(),
                 title = None,
-                has_gps = cells[2].text.strip(),
+                has_gps = _has_gps(cells[2]),
                 has_photos = False
             )
 
@@ -42,13 +47,28 @@ def _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url):
         for trip_report_row in trip_report_rows
     ))
 
+
 def _convert_peak_to_pid(peak):
-    return 2182
+    peakbagger_id_lookup = json.loads(pkg_resources.resource_string('trfind.finders', 'peakbagger_id_lookup.json'))
+    fuzzy_match_deltas = [0, -0.001, 0.001]
+    for lat_delta_index in fuzzy_match_deltas:
+        for lon_delta_index in fuzzy_match_deltas:
+            lat_lon_string = '{lat}, {lon}'.format(
+                lat=round(peak.lat + fuzzy_match_deltas[lat_delta_index], 3),
+                lon=round(peak.lon + fuzzy_match_deltas[lon_delta_index], 3)
+            )
+            peak_id = peakbagger_id_lookup.get(lat_lon_string)
+            if peak_id is not None:
+                return peak_id
+    return None
 
 
 def find(peak):
-    br = mechanize.Browser()
     peakbagger_peak_id = _convert_peak_to_pid(peak)
+    if peakbagger_peak_id is None:
+        return []
+
+    br = mechanize.Browser()
     url = 'http://www.peakbagger.com/climber/PeakAscents.aspx?pid={}&sort=AscentDate&u=ft&y=9999'.format(peakbagger_peak_id)
     page = br.open(url)
     html = page.read()

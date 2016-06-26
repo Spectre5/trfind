@@ -17,5 +17,6 @@ setup(
     ],
     entry_points={
         'console_scripts': ['trfind = trfind.find:main']
-    }
+    },
+    include_package_data=True
 )
