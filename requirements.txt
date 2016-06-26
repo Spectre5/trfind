@@ -1,0 +1,4 @@
+lxml
+mechanize
+petl
+python-dateutil
