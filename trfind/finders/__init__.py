@@ -1,5 +1,7 @@
 import summitpost
+import peakbagger
 
 ALL_FINDERS = [
-    summitpost.find
+    summitpost.find,
+    peakbagger.find
 ]
