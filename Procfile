@@ -1,1 +1,1 @@
-web: python trfind/app.py
+web: python app.py
