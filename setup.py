@@ -11,7 +11,7 @@ setup(
     install_requires=[
         'beautifulsoup',
         'Flask',
-        'flask-cors',
+        'Flask-Cors',
         'lxml',
         'mechanize',
         'petl',
