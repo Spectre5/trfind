@@ -10,10 +10,9 @@ from trfind.models import Peak, TripReportSummary
 
 
 def get_all_trip_reports(peak):
-    return peakbagger.find(peak)
-    # return list(itertools.chain(
-    #     *[finder(peak) for finder in ALL_FINDERS]
-    # ))
+    return list(itertools.chain(
+        *[finder(peak) for finder in ALL_FINDERS]
+    ))
 
 
 def main():

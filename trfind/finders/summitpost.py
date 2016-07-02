@@ -1,4 +1,5 @@
 from urlparse import urljoin
+import logging
 
 from dateutil.parser import parse as parse_date
 from lxml import etree
@@ -7,7 +8,6 @@ import petl
 
 from trfind.html_table import get_basic_data_from_table
 from trfind.models import TripReportSummary
-
 
 SUMMITPOST_SITE = 'SummitPost'
 
@@ -28,7 +28,11 @@ def find(peak):
     browser.open('http://www.summitpost.org/trip-report/')
     browser.select_form(name='object_list')
     browser['object_name_5'] = peak.name
-    results_response = browser.submit()
+    try:
+        results_response = browser.submit()
+    except mechanize.HTTPError as error:
+        logging.error('HTTP Error on submitting summitpost form: {}'.format(str(error)))
+        return []
 
     html = etree.HTML(results_response.read())
     try:
