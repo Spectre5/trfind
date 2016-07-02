@@ -5,13 +5,15 @@ import sys
 import petl
 
 from trfind.finders import ALL_FINDERS
+from trfind.finders import peakbagger
 from trfind.models import Peak, TripReportSummary
 
 
 def get_all_trip_reports(peak):
-    return list(itertools.chain(
-        *[finder(peak) for finder in ALL_FINDERS]
-    ))
+    return peakbagger.find(peak)
+    # return list(itertools.chain(
+    #     *[finder(peak) for finder in ALL_FINDERS]
+    # ))
 
 
 def main():
@@ -26,7 +28,7 @@ def main():
     )
     args = parser.parse_args()
     peak_name = ' '.join(*args.name) or 'Mount Stuart'
-    
+
     peak = Peak(peak_name, args.lat, args.lon)
     print 'Finding trip reports for', peak
 
