@@ -26,14 +26,9 @@ def _cascadeclimbers_data_to_trip_report_summary(summitpost_data, base_url):
 def _clean_name_for_cascadeclimbers(name):
     ''' CascadeClimbers' search is awful.
     If you search for 'Mount Stuart' you will get results for all 'Mounts'.
-    Make an attempt here to disambiguate.
+    Put name in quotes for better results.
     '''
-    dangerous_word = 'Mount '
-    if dangerous_word in name:
-        # just remove that section
-        parts = name.partition(dangerous_word)
-        return ''.join([parts[0], parts[2]])
-    return name
+    return '"{}"'.format(name)
 
 
 def find(peak):
@@ -45,12 +40,12 @@ def find(peak):
 
     results_response = browser.submit()
     html = etree.HTML(results_response.read())
-    
+
     # CascadeClimbers has an incredible quantity of HTML tables which seem to move around unpredictably.
     # Use the distinctive 'Location|Route' header link to find the right table.
     location_header = html.xpath('.//a[contains(text(),"Location|Route")]')[0]
     results_table = location_header.getparent().getparent().getparent()
-    
+
     cascadeclimbers_reports = get_basic_data_from_table(results_table, 2)
     base_url = results_response.geturl()
     reports_in_standardized_format = [
