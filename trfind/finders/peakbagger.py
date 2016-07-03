@@ -31,11 +31,13 @@ def _parse_trip_report_row(trip_report_row, relative_to_absolute_url):
     if len(cells) >= 5:
         link =  relative_to_absolute_url(_get_href(cells[0]))
         if link:
+            raw_route = cells[4].text.strip()
+            route = None if raw_route == '&nbsp;' else raw_route
             return TripReportSummary(
                 site = PEAKBAGGER_SITE,
                 link = link,
                 date = _parse_date(cells[0].text.strip()),
-                route = cells[4].text.strip(),
+                route = route,
                 title = None,
                 has_gps = _has_gps(cells[2]),
                 has_photos = False
