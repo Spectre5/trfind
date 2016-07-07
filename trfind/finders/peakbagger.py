@@ -55,9 +55,9 @@ def _convert_peak_to_pid(peak):
     fuzzy_match_deltas = [0, -0.001, 0.001]
     for lat_delta in fuzzy_match_deltas:
         for lon_delta in fuzzy_match_deltas:
-            lat_lon_string = '{lat}, {lon}'.format(
-                lat=round(peak.lat + lat_delta, 3),
-                lon=round(peak.lon + lon_delta, 3)
+            lat_lon_string = '{lat:.3f}, {lon:.3f}'.format(
+                lat=peak.lat + lat_delta,
+                lon=peak.lon + lon_delta
             )
             peak_id = peakbagger_id_lookup.get(lat_lon_string)
             if peak_id is not None:
