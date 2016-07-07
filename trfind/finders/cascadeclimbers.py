@@ -11,11 +11,12 @@ from trfind.models import TripReportSummary
 
 CACSADECLIMBERS_SITE = 'Cascade Climbers'
 
-def _cascadeclimbers_data_to_trip_report_summary(summitpost_data, base_url):
+def _cascadeclimbers_data_to_trip_report_summary(cascadeclimbers_data, base_url):
     return TripReportSummary(
         site=CACSADECLIMBERS_SITE,
-        link=urljoin(base_url, summitpost_data['Link']),
-        title=summitpost_data['Location|Route'],
+        link=urljoin(base_url, cascadeclimbers_data['Link']),
+        date=parse_date(cascadeclimbers_data['Date'])  if cascadeclimbers_data['Date'] else None,
+        title=cascadeclimbers_data['Location|Route'],
         route=None,
         has_gps=None,
         has_photos=None
