@@ -15,7 +15,6 @@ def _cascadeclimbers_data_to_trip_report_summary(summitpost_data, base_url):
     return TripReportSummary(
         site=CACSADECLIMBERS_SITE,
         link=urljoin(base_url, summitpost_data['Link']),
-        date=parse_date(summitpost_data['Date']),
         title=summitpost_data['Location|Route'],
         route=None,
         has_gps=None,
