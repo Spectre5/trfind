@@ -1,6 +1,8 @@
 import json
 import requests
 
+from trfind.models import DayWeather
+
 def get_weather(peak):
     weather_url = 'http://forecast.weather.gov/MapClick.php?lat={lat}&lon={lon}&FcstType=json'.format(lat=peak.lat, lon=peak.lon)
     response = requests.get(weather_url)
@@ -14,4 +16,9 @@ def get_weather(peak):
     weathers = weather_data.get('data', {}).get('weather', ())
     descriptions = weather_data.get('data', {}).get('text', ())
 
-    return zip(days, temperatures, temp_labels, precip_likelihoods, icon_links, weathers, descriptions)
+    weathers = zip(days, temperatures, temp_labels, precip_likelihoods, icon_links, weathers, descriptions)
+
+    return tuple(
+        DayWeather(*weather)
+        for weather in weathers
+    )

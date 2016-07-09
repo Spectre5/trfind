@@ -26,9 +26,9 @@ def weather():
     json = request.json
 
     peak = Peak(**json['data'])
-    weather = get_weather(peak)
+    weathers = get_weather(peak)
 
-    return jsonify({'data': weather})
+    return jsonify({'data': tuple(weather._asdict() for weather in weathers)})
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
