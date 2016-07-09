@@ -15,7 +15,8 @@ setup(
         'lxml',
         'mechanize',
         'petl',
-        'python-dateutil'
+        'python-dateutil',
+        'requests',
     ],
     entry_points={
         'console_scripts': ['trfind = trfind.find:main']

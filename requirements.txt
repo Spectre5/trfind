@@ -5,4 +5,5 @@ lxml==3.6.0
 mechanize==0.2.5
 petl==1.1.0
 python-dateutil==2.5.1
+requests==2.9.1
 Werkzeug==0.11.10
