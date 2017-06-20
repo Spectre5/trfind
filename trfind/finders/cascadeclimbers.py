@@ -2,7 +2,7 @@ from urlparse import urljoin
 
 from dateutil.parser import parse as parse_date
 from lxml import etree
-import mechanize
+import mechanicalsoup
 import petl
 
 from trfind.html_table import get_basic_data_from_table
@@ -32,7 +32,7 @@ def _clean_name_for_cascadeclimbers(name):
 
 
 def find(peak):
-    browser = mechanize.Browser()
+    browser = mechanicalsoup.StatefulBrowser()
     browser.open('http://cascadeclimbers.com/forum/ubbthreads.php/ubb/tripreports')
 
     browser.select_form(nr=1)

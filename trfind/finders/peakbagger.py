@@ -6,7 +6,7 @@ from functools import partial
 from urlparse import urljoin
 
 from BeautifulSoup import BeautifulSoup
-import mechanize
+import mechanicalsoup
 
 from trfind.models import TripReportSummary
 
@@ -70,7 +70,7 @@ def find(peak):
     if peakbagger_peak_id is None:
         return []
 
-    br = mechanize.Browser()
+    br = mechanicalsoup.StatefulBrowser()
     url = 'http://www.peakbagger.com/climber/PeakAscents.aspx?pid={}&sort=AscentDate&u=ft&y=9999'.format(peakbagger_peak_id)
     page = br.open(url)
     html = page.read()
