@@ -22,13 +22,22 @@ def _cascadeclimbers_data_to_trip_report_summary(cascadeclimbers_data, base_url)
         has_photos=None
     )
 
+AFFIXES_TO_STRIP = ['mount', 'mt', 'mt.', 'peak', 'mountain']
 
 def _clean_name_for_cascadeclimbers(name):
     ''' CascadeClimbers' search is awful.
-    If you search for 'Mount Stuart' you will get results for all 'Mounts'.
-    Put name in quotes for better results.
+    To give it the best chance without too many false positives
+    (eg. 'mount stuart' without quotes would match any 'mount' :p)
+    we remove common prefixes and suffixes and quote what remains.
     '''
-    return '"{}"'.format(name)
+    search_name = name.lower()
+    for affix in AFFIXES_TO_STRIP:
+        chars_to_strip = len(affix) + 1  # Include a space
+        if search_name.endswith(' {}'.format(affix)):
+            search_name = search_name[:-chars_to_strip]
+        if search_name.startswith('{} '.format(affix)):
+            search_name = search_name[chars_to_strip:]
+    return '"{}"'.format(search_name)
 
 
 def find(peak):
