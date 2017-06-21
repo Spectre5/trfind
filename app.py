@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 
 def _get_peak_from_request():
-    return Peak(**request.json)
+    return Peak(**request.json['data'])
 
 
 @app.route('/find', methods=['POST'])
