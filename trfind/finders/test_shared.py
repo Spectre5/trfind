@@ -1,6 +1,7 @@
 import pytest
 
 import trfind.finders.cascadeclimbers as module
+import trfind.finders.shared
 
 
 @pytest.mark.parametrize('expected_in, expected_out', [
@@ -8,5 +9,5 @@ import trfind.finders.cascadeclimbers as module
     ['Argonaut Peak', '"argonaut"'],
     ['White Chuck', '"white chuck"'],
 ])
-def test_clean_name_for_cacadeclimbers(expected_in, expected_out):
-    assert module._clean_name_for_cascadeclimbers(expected_in) == expected_out
+def test_clean_peak_name(expected_in, expected_out):
+    assert trfind.finders.shared.clean_peak_name(expected_in) == expected_out
