@@ -2,7 +2,7 @@
 def _get_some_text_content(table_cell_node):
     ''' Remove all the links and crap and just return a simplified contents string
     '''
-    try: 
+    try:
         title = table_cell_node.text.strip()
         if title:
             return title

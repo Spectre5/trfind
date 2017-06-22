@@ -9,11 +9,10 @@ setup(
     url='http://github.com/thatneat/trfind',
     packages=['trfind'],
     install_requires=[
-        'beautifulsoup',
+        'beautifulsoup4',
         'Flask',
         'Flask-Cors',
         'lxml',
-        'mechanize',
         'petl',
         'python-dateutil',
         'requests',

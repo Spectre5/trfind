@@ -1,12 +1,12 @@
 import json
+import urllib
 import pkg_resources
 from datetime import datetime
+
+from bs4 import BeautifulSoup
 from dateutil import parser
 from functools import partial
-from urlparse import urljoin
-
-from BeautifulSoup import BeautifulSoup
-import mechanize
+from urllib.parse import urljoin
 
 from trfind.models import TripReportSummary
 
@@ -16,7 +16,7 @@ PEAKBAGGER_SITE = 'Peakbagger'
 def _parse_date(date_string):
     try:
         return parser.parse(date_string, default=datetime(2000, 1, 1))
-    except ValueError, AttributeError:
+    except (ValueError, AttributeError):
         return None
 
 def _get_href(cell):
@@ -70,13 +70,11 @@ def find(peak):
     if peakbagger_peak_id is None:
         return []
 
-    br = mechanize.Browser()
     url = 'http://www.peakbagger.com/climber/PeakAscents.aspx?pid={}&sort=AscentDate&u=ft&y=9999'.format(peakbagger_peak_id)
-    page = br.open(url)
-    html = page.read()
-    soup = BeautifulSoup(html)
+    page = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(page)
 
     trip_report_table = soup.html.body.findAll('table')[2].findAll('table')[2]
     trip_report_rows = trip_report_table('tr')
 
-    return _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url=partial(urljoin, page.geturl()))
+    return _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url=partial(urljoin, url))

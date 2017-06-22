@@ -1,10 +1,8 @@
 import urllib
-from urlparse import urljoin
-import logging
+from urllib.parse import urljoin, urlencode
 
 from dateutil.parser import parse as parse_date
 from lxml import etree
-import petl
 
 from trfind.finders.shared import clean_peak_name
 from trfind.html_table import get_basic_data_from_table
@@ -25,7 +23,7 @@ def _summitpost_data_to_trip_report_summary(summitpost_data, base_url):
 
 
 def _summitpost_url_format(peak_name):
-    query_string = urllib.urlencode({'object_name_5': peak_name})
+    query_string = urlencode({'object_name_5': peak_name})
     return (
         'http://www.summitpost.org/object_list.php?object_type=5&{}'
         .format(query_string)
@@ -33,7 +31,7 @@ def _summitpost_url_format(peak_name):
 
 
 def find(peak):
-    response = urllib.urlopen(_summitpost_url_format(
+    response = urllib.request.urlopen(_summitpost_url_format(
         peak_name=clean_peak_name(peak.name)
     ))
 

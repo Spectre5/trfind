@@ -1,12 +1,10 @@
 import argparse
 import itertools
-import sys
 
 import petl
 
-from trfind.finders import ALL_FINDERS
-from trfind.finders import peakbagger
-from trfind.models import Peak, TripReportSummary
+from .finders import ALL_FINDERS
+from .models import Peak, TripReportSummary
 
 
 def get_all_trip_reports(peak):
@@ -29,11 +27,11 @@ def main():
     peak_name = ' '.join(*args.name) or 'Mount Stuart'
 
     peak = Peak(peak_name, args.lat, args.lon)
-    print 'Finding trip reports for', peak
+    print('Finding trip reports for', peak)
 
     all_trip_reports = get_all_trip_reports(peak)
 
     petl.fromdicts(
-        [report.__dict__ for report in all_trip_reports],
+        [report._asdict() for report in all_trip_reports],
         header=TripReportSummary._fields
     ).tocsv()
