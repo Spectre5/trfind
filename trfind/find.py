@@ -1,11 +1,10 @@
 import argparse
 import itertools
-import sys
 
 import petl
 
-from trfind.finders import ALL_FINDERS
-from trfind.models import Peak, TripReportSummary
+from .finders import ALL_FINDERS
+from .models import Peak, TripReportSummary
 
 
 def get_all_trip_reports(peak):
@@ -33,6 +32,6 @@ def main():
     all_trip_reports = get_all_trip_reports(peak)
 
     petl.fromdicts(
-        [report.__dict__ for report in all_trip_reports],
+        [report._asdict() for report in all_trip_reports],
         header=TripReportSummary._fields
     ).tocsv()

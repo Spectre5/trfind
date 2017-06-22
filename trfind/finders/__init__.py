@@ -1,6 +1,4 @@
-import cascadeclimbers
-import summitpost
-import peakbagger
+from . import cascadeclimbers, summitpost, peakbagger
 
 ALL_FINDERS = [
     cascadeclimbers.find,
