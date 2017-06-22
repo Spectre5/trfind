@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='trfind',
-    version='0.0.4',
+    version='0.0.5',
     author='Jason Curtis and Jaime McCandless',
     description='Finds trip reports from the Internet',
     url='http://github.com/thatneat/trfind',
