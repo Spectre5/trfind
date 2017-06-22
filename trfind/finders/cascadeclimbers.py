@@ -1,9 +1,7 @@
-import robobrowser
 from lxml import etree
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-import mechanicalsoup
 from dateutil.parser import parse as parse_date
 
 from trfind.finders.shared import clean_peak_name

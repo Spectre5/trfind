@@ -13,7 +13,6 @@ setup(
         'Flask',
         'Flask-Cors',
         'lxml',
-        'MechanicalSoup',
         'petl',
         'python-dateutil',
         'requests',

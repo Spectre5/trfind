@@ -1,6 +1,5 @@
 import json
 import urllib
-
 import pkg_resources
 from datetime import datetime
 
@@ -8,8 +7,6 @@ from bs4 import BeautifulSoup
 from dateutil import parser
 from functools import partial
 from urllib.parse import urljoin
-
-import mechanicalsoup
 
 from trfind.models import TripReportSummary
 
@@ -73,7 +70,6 @@ def find(peak):
     if peakbagger_peak_id is None:
         return []
 
-    br = mechanicalsoup.StatefulBrowser()
     url = 'http://www.peakbagger.com/climber/PeakAscents.aspx?pid={}&sort=AscentDate&u=ft&y=9999'.format(peakbagger_peak_id)
     page = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(page)
