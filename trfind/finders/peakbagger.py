@@ -72,9 +72,9 @@ def find(peak):
 
     url = 'http://www.peakbagger.com/climber/PeakAscents.aspx?pid={}&sort=AscentDate&u=ft&y=9999'.format(peakbagger_peak_id)
     page = urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(page)
+    soup = BeautifulSoup(page, 'lxml')
 
-    trip_report_table = soup.html.body.findAll('table')[2].findAll('table')[2]
+    trip_report_table = soup.html.body.find('table', {'class': 'gray'})
     trip_report_rows = trip_report_table('tr')
 
     return _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url=partial(urljoin, url))
