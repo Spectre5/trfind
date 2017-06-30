@@ -1,7 +1,8 @@
-from . import cascadeclimbers, summitpost, peakbagger
+from . import cascadeclimbers, summitpost, peakbagger, nwhikers
 
 ALL_FINDERS = [
     cascadeclimbers.find,
     summitpost.find,
-    peakbagger.find
+    peakbagger.find,
+    nwhikers.find
 ]

@@ -51,7 +51,7 @@ def _parse_trip_report_rows(trip_report_rows, relative_to_absolute_url):
 
 
 def _convert_peak_to_pid(peak):
-    peakbagger_id_lookup = json.loads(pkg_resources.resource_string('trfind.finders', 'peakbagger_id_lookup.json'))
+    peakbagger_id_lookup = json.loads(pkg_resources.resource_string('trfind.finders', 'peakbagger_id_lookup.json').decode('utf8'))
     fuzzy_match_deltas = [0, -0.001, 0.001]
     for lat_delta in fuzzy_match_deltas:
         for lon_delta in fuzzy_match_deltas:
