@@ -23,7 +23,6 @@ def _parse_result(result, peak):
     title = result['title']
 
     if remove_mount(peak.name.lower()) not in title.lower():
-        print('didnt find', peak.name.lower(), 'in', title.lower())
         return
 
     # Steph's TR titles include route in parenthesis
