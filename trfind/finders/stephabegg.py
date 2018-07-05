@@ -15,7 +15,7 @@ from trfind.models import TripReportSummary
 STEPH_ABEGG_SITE = 'Steph Abegg'
 
 def _parse_result(result, peak):
-    title = result['titleNoFormatting']
+    title = result['title']
 
     if peak.name.lower() not in title.lower():
         return
@@ -28,7 +28,7 @@ def _parse_result(result, peak):
 
     return TripReportSummary(
         site = STEPH_ABEGG_SITE,
-        link = result['url'],
+        link = result['link'],
         date = None,
         route = route,
         title = title,
@@ -48,9 +48,9 @@ def find(peak):
     query_string = urlencode({
         'q': peak.name
     })
-    url = 'https://www.googleapis.com/customsearch/v1element?key=AIzaSyCVAXiUzRYsML1Pv6RwSG1gunmMikTzQqY&cx=005369887179366237532:sfblfll6xtg&{}'.format(query_string)
+    url = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCDKkFSe-FgCZdMqyU5vOEgq2T0jgnSxP8&cx=008421871213652748671:uaqmznzb4ys&{}'.format(query_string)
 
     response = requests.get(url)
-    results = response.json()['results']
+    results = response.json()['items']
 
     return _parse_results(results, peak)
