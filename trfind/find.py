@@ -1,5 +1,6 @@
 import argparse
 import itertools
+import traceback
 
 import petl
 
@@ -8,9 +9,13 @@ from .models import Peak, TripReportSummary
 
 
 def get_all_trip_reports(peak):
-    return list(itertools.chain(
-        *[finder(peak) for finder in ALL_FINDERS]
-    ))
+    reports = []
+    for finder in ALL_FINDERS:
+        try:
+            reports.extend(finder(peak))
+        except Exception as e:
+            print('Failed to run {} for {}: {}'.format(finder, peak, traceback.format_exc()))
+    return reports
 
 
 def main():
