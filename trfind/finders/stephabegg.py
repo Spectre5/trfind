@@ -14,10 +14,16 @@ from trfind.models import TripReportSummary
 
 STEPH_ABEGG_SITE = 'Steph Abegg'
 
+def remove_mount(title_lowered):
+    ''' Page titles incldue stuff like 'mt. stuart' so when we search in the title, remove 'Mount' from our peak name '''
+    if title_lowered.startswith('mount'):
+        return title_lowered[len('mount'):]
+
 def _parse_result(result, peak):
     title = result['title']
 
-    if peak.name.lower() not in title.lower():
+    if remove_mount(peak.name.lower()) not in title.lower():
+        print('didnt find', peak.name.lower(), 'in', title.lower())
         return
 
     # Steph's TR titles include route in parenthesis
