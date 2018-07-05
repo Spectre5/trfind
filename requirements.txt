@@ -1,7 +1,7 @@
 beautifulsoup4==4.6.0
 Flask==0.11.1
 Flask-Cors==2.1.2
-lxml==3.6.0
+lxml==4.2.3
 petl==1.1.0
 python-dateutil==2.5.1
 requests==2.9.1
