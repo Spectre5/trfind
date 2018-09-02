@@ -22,9 +22,8 @@ Ideas are tracked using the (issues page)[https://github.com/thatneat/trfind/iss
 * `trfind 48.51152 -121.05789 "Forbidden Peak"`
 
 ### Browser Testing
-* Edit the app.py (see the 2 comments in the file)
 * `python app.py`
-* visit [http://localhost:5000/find](http://localhost:5000/find)
+* visit [http://localhost:5000/test](http://localhost:5000/test)
 
 ## Contributors
 
