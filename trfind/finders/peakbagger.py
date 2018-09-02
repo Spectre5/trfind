@@ -8,7 +8,7 @@ from dateutil import parser
 from functools import partial
 from urllib.parse import urljoin
 
-from trfind.models import TripReportSummary
+from ..models import TripReportSummary
 
 
 PEAKBAGGER_SITE = 'Peakbagger'

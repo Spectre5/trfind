@@ -10,7 +10,7 @@ import urllib
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-from trfind.models import TripReportSummary
+from ..models import TripReportSummary
 
 STEPH_ABEGG_SITE = 'Steph Abegg'
 
@@ -18,6 +18,7 @@ def remove_mount(title_lowered):
     ''' Page titles incldue stuff like 'mt. stuart' so when we search in the title, remove 'Mount' from our peak name '''
     if title_lowered.startswith('mount'):
         return title_lowered[len('mount'):]
+    return title_lowered
 
 def _parse_result(result, peak):
     title = result['title']
