@@ -7,7 +7,7 @@ from functools import partial
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-from trfind.models import TripReportSummary
+from ..models import TripReportSummary
 
 
 NWHIKERS_SITE = 'NW Hikers'

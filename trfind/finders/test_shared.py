@@ -1,7 +1,7 @@
 import pytest
 
-import trfind.finders.cascadeclimbers as module
-import trfind.finders.shared
+import ..finders.cascadeclimbers as module
+import ..finders.shared
 
 
 @pytest.mark.parametrize('expected_in, expected_out', [

@@ -4,8 +4,8 @@ from urllib.parse import urljoin
 from dateutil.parser import parse as parse_date
 from bs4 import BeautifulSoup
 
-from trfind.finders.shared import clean_peak_name
-from trfind.models import TripReportSummary
+from ..finders.shared import clean_peak_name
+from ..models import TripReportSummary
 
 CACSADECLIMBERS_SITE = 'Cascade Climbers'
 

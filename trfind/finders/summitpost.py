@@ -4,9 +4,9 @@ from urllib.parse import urljoin, urlencode
 from dateutil.parser import parse as parse_date
 from lxml import etree
 
-from trfind.finders.shared import clean_peak_name
-from trfind.html_table import get_basic_data_from_table
-from trfind.models import TripReportSummary
+from ..finders.shared import clean_peak_name
+from ..html_table import get_basic_data_from_table
+from ..models import TripReportSummary
 
 SUMMITPOST_SITE = 'SummitPost'
 

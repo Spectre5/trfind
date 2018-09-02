@@ -1,7 +1,7 @@
 import json
 import requests
 
-from trfind.models import DayWeather
+from .models import DayWeather
 
 def get_weather(peak):
     weather_url = 'http://forecast.weather.gov/MapClick.php?lat={lat}&lon={lon}&FcstType=json'.format(lat=peak.lat, lon=peak.lon)
