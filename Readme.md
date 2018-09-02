@@ -5,7 +5,7 @@ Trip report search tool used by ClimbPlan, hosted at https://climbplan.com.
 This is mostly a weekend project, Pull requests are welcome!
 
 ## Wishlist
-Ideas are tracked using the (issues page)[https://github.com/thatneat/trfind/issues].
+Ideas are tracked using the [issues page](https://github.com/thatneat/trfind/issues).
 
 # Setup and Running
 * Clone the github repo
